@@ -7,8 +7,8 @@ function Header() {
             <header className='flex items-center p-6 shadow-lg gap-4'>
                 <Target size={45} className='text-red-500' />
                 <div>
-                    <h2 className='text-2xl font-bold'>Task Management App</h2>
-                    <p className='font-semibold'>Manage the Tasks Like Pro</p>
+                    <h2 className='text-2xl font-bold'>TaskFlow</h2>
+                    <p className='font-semibold'>Your Personal Productivity Champion</p>
                 </div>
             </header>
         </>
