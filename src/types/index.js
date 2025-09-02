@@ -1,12 +1,14 @@
 export  function createTask(taskData) {
-    //Validate task data
-    if (!taskData.title || !taskData.description || typeof taskData.title !== 'string' || typeof taskData.description !== 'string') {
-        throw new Error('Invalid task data');
-    }
-    // Check for excessively long title or description
-    if (taskData.title.length > 100 || taskData.description.length > 500) {
-        throw new Error('Title or description is too long');
-    }
+    // Validate title
+  if (!taskData.title || typeof taskData.title !== 'string') {
+    throw new Error('Invalid task data: Title is required and must be a string');
+  }
+
+  // Validate optional description
+  if (taskData.description !== undefined && typeof taskData.description !== 'string') {
+    throw new Error('Invalid task data: Description must be a string if provided');
+  }
+    
     // Simulate task creation
     if (!['low', 'medium', 'high'].includes(taskData.priority)) {
         throw new Error('Invalid priority level');
@@ -14,9 +16,9 @@ export  function createTask(taskData) {
 
     return {
         id: crypto.randomUUID(),
-        task: taskData.title,
+        title: taskData.title,
         description: taskData.description || undefined,
-        dueDate: task.dueDate || undefined,
+        dueDate: taskData.dueDate || undefined,
         completed: Boolean(taskData.completed),
         priority: taskData.priority,
         createdAt: new Date().toISOString(),
@@ -26,7 +28,7 @@ export  function createTask(taskData) {
 
 export function createTaskFilter(status = 'all', priority = undefined) {
     if (!['all', 'active', 'completed'].includes(status)) {
-        throw new error('Status must be all, active, or completed');
+        throw new Error('Status must be all, active, or completed');
     }
 
     return {
@@ -36,20 +38,20 @@ export function createTaskFilter(status = 'all', priority = undefined) {
 }
 
 export  function validateTasks(task) {
-    const error = [];
+    const errors = [];
 
     if (!task.id || typeof task.id !== 'string') {
-        error.push('Task id shoud be String Only')
+        errors.push('Task id should be String Only')
     }
     if (!task.title || typeof task.title !== 'string') {
-        error.push('Task title should be string')
+        errors.push('Task title should be string')
     }
     if (typeof task.completed !== 'boolean') {
-        error.push('Task Should either be completed or not')
+        errors.push('Task Should either be completed or not')
     }
     if (!['low', 'medium', 'high'].includes(task.priority)) {
-        error.push('Task should only be Low, Medium, or High.')
+        errors.push('Task should only be Low, Medium, or High.')
     }
 
-    return error;
+    return errors;
 }

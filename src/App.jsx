@@ -3,7 +3,7 @@ import './App.css'
 import Header from './components/Header'
 import AddTaskForm from './components/AddTaskForm'
 import useTask from './hooks/useTask'
-import Taskstats from './components/Taskstats'
+import Taskstats from './components/TaskStats'
 import TaskFilter from './components/TaskFilter'
 import TaskList from './components/TaskList'
 

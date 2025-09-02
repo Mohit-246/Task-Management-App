@@ -27,9 +27,9 @@ export default function TaskItems({ onToggle, onUpdate, onDelete, task }) {
         setEditDescription(task.description);
     }
     const priorityColors = {
-        low: 'bg-green-400  text-green-800 border-green-600',
-        medium: 'bg-yellow-400 text-yellow-800 border-yellow-600',
-        high: 'bg-red-400 text-red-800 border-red-600',
+        low: 'bg-green-400/50  text-green-800 border-green-400',
+        medium: 'bg-yellow-400/50 text-yellow-800 border-yellow-400',
+        high: 'bg-red-400/50 text-red-800 border-red-400',
     }
 
     const now = new Date();
@@ -48,6 +48,7 @@ export default function TaskItems({ onToggle, onUpdate, onDelete, task }) {
         ${isOverdue ? 'border-red-500 bg-red-100' : ''}
         ${isDueSoon ? 'border-yellow-500 bg-yellow-100' : ''}
         `}>
+            <div className='flex justify-between m-4n'>
                 <div className="flex items-start gap-4">
                     <button
                         onClick={() => onToggle(task.id)}
@@ -58,8 +59,8 @@ export default function TaskItems({ onToggle, onUpdate, onDelete, task }) {
                         <CheckCircle2 size={20} />
                     </button>
 
-                    <div>
-                        {isediting ? (
+                    <div className='flex justify-between'>
+                        {isEditing ? (
                             <div className='space-y-4'>
                                 <input
                                     type="text"
@@ -90,12 +91,12 @@ export default function TaskItems({ onToggle, onUpdate, onDelete, task }) {
                                 </div>
                             </div>
                         ) : (
-                            <div className='space-y-2'>
+                            <div className='space-y- w-1/2'>
                                 <h3 className={`text-xl font-bold transition duration-200 ${task.completed ? 'line-through text-gray-400' : 'text-gray-900'}`}>{task.title}</h3>
-                                {task.description && <p className={`text-gray-700 transition duration-200 ${task.completed ? 'line-through text-gray-400' : ''}`}>{task.description}</p>}
+                                {task.description && <p className={`text-gray-700 break-words break-all transition duration-200 ${task.completed ? 'line-through text-gray-400' : ''}`}>{task.description}</p>}
 
                                 <div className='flex items-center gap-4 flex-wrap'>
-                                    <span className={`border text-sm px-2 py-1 rounded-full ${priorityColors[task.priority]}`}>
+                                    <span className={`border text-sm px-2 py-1 flex gap-2 rounded-full ${priorityColors[task.priority]}`}>
                                         <Flag size={16} />
                                         {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
                                     </span>
@@ -115,27 +116,25 @@ export default function TaskItems({ onToggle, onUpdate, onDelete, task }) {
                         )}
                     </div>
 
-                    <div className='flex items-center gap-3'>
+                </div>
+                    <div className='flex items-center p-4'>
                         {!isEditing && (
-                            <div>
+                            <div className='right-0 top-0 flex gap-2'>
                             <button 
-                            onClick={setIsEditing(true)}
+                            onClick={()=> setIsEditing(true)}
                             className='p-4 text-gray-600 hover:text-blue-500 hover:bg-gray-100 rounded-full transition-colors duration-300'>
                                 <Edit3Icon size={16} />
                             </button>
                             
                             <button
-                            onClick={() => {
-                                if (window.confirm('Are you sure you want to delete this task?')) {
-                                    onDelete(task.id);
-                                }}}>
+                            onClick={() => {onDelete(task.id);}}>
                                 <Trash2 size={16} />
                             </button>
                             </div>
                         )}
                     </div>
 
-                </div>
+            </div>
 
             </div>
         </>

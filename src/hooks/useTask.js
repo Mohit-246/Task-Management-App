@@ -1,10 +1,38 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { createTask , validateTasks } from '../types'
 
+const STORAGE_KEY = 'tasks';
 
 export default function useTask() {
     const [tasks, setTasks] =useState([]);
     const [filter, setFilter] = useState({status: 'all'})
+
+    useEffect(()=>{
+        const storedTasks = localStorage.getItem(STORAGE_KEY);
+
+        if(storedTasks){
+            try{
+                const parsedTasks = JSON.parse(storedTasks);
+                const validTasks = parsedTasks.filter(task => {
+                    const error = validateTasks(task);
+                    if(error.length ===0){
+                        return true;
+                    } else {
+                        console.error('Invalid task found in storage:', error);
+                        return false;
+                    }
+                });
+                setTasks(validTasks);
+            }
+            catch(error){
+                console.error('Failed to parse tasks from localStorage:', error);
+            }
+        }
+    },[]);
+
+    useEffect(()=>{
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    },[tasks]);
 
     const addTask =(taskData)=>{
         try{

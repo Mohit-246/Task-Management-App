@@ -27,11 +27,11 @@ export default function AddTaskForm({ onAddTask }) {
         setTitle('');
         setDescription('');
         setDueDate('');
-        setPriority('Medium');
+        setPriority('medium');
         setIsExpanded(false);
       }
       catch (error) {
-        console.error('Error adding task:' + error.message);
+        console.error('Error adding task:', error.message);
         alert('There was an error adding the task. Please try again.');
       }
     }
