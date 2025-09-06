@@ -1,4 +1,4 @@
-### TaskFlow
+# TaskFlow
 
 TaskFlow is a simple and intuitive web application for managing daily tasks efficiently. Built with **React**, TaskFlow lets users create, review, edit, and delete tasks in a clean and responsive user interface.
 
@@ -49,3 +49,4 @@ Follow these steps to set up the project locally:
 Developed and maintained by [Mohit-246](https://github.com/Mohit-246).
 
 ***
+
